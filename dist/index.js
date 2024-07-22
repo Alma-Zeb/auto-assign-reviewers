@@ -29260,6 +29260,7 @@ async function assignReviewers({ repoToken, numberReviewers, usernames }) {
     };
 }
 function getRandomReviewers(usernames, numberReviewers, owner) {
+    console.log(`usernames ${JSON.stringify(usernames)}, numberReviewers ${numberReviewers}, owner ${owner}`);
     const filteredUsernames = usernames.filter(username => username !== owner);
     if (filteredUsernames.length < numberReviewers) {
         core.error(`Not enough reviewers to assign to PR`);
