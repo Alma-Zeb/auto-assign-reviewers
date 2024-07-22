@@ -15,22 +15,24 @@ Configuration:
 ```yaml
 name: Random assign reviewers
 on:
-  pull_request_target:
+  pull_request:
     types:
+      - opened
+      - reopened
       - ready_for_review
 jobs:
   assignReviewers:
+    if: github.event.pull_request.draft == false
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: Alma-Zeb/random-pr-reviewers@v1
+      - uses: Alma-Zeb/auto-assign-reviewers@v1.0.4
         with:
           webhook-url: '${{ secrets.GOOGLE_CHAT_WEBHOOK_URL }}'
-          repo-token: '${{ secrets.GITHUB_TOKEN }}'
-          reviewers: 2
+          repo-token: '${{ secrets.TOKEN }}'
+          reviewers: 1
           usernames: |
             user1
             user2
             user3
-            user4
 ```
