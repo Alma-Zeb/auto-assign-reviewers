@@ -1,23 +1,26 @@
-name: 'The name of your action here'
-description: 'Provide a description here'
-author: 'Your name or organization here'
+name: 'Random PR reviewers'
+description:
+  'Automatically assign random reviewers to Pull Requests and send a message to
+  Google Chat Space'
 
-# Add your action's branding here. This will appear on the GitHub Marketplace.
 branding:
-  icon: 'heart'
-  color: 'red'
+  icon: 'user-plus'
+  color: 'orange'
 
-# Define your inputs here.
 inputs:
-  milliseconds:
-    description: 'Your input description here'
+  webhook-url:
+    description: 'Google Chat webhook url'
+    required: false
+  repo-token:
+    description: 'Github repository token secret'
     required: true
-    default: '1000'
-
-# Define your outputs here.
-outputs:
-  time:
-    description: 'Your output description here'
+  reviewers:
+    description: 'Number of reviewers'
+    required: false
+    default: 1
+  usernames:
+    description: 'List of Github usernames'
+    required: true
 
 runs:
   using: node20
