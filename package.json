@@ -1,7 +1,7 @@
 {
   "name": "random-pr-reviewers",
   "description": "Automatically assign random reviewers to Pull Requests and send a message to Google Chat Space",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "private": true,
   "exports": {
     ".": "./dist/index.js"
