@@ -29419,7 +29419,7 @@ function buildPullRequestCard({ prUser, prName, prUrl, reviewers }) {
                             text: 'Pull Request',
                             onClick: {
                                 openLink: {
-                                    url: 'https://github.com/luuna-tech/web-client-v3.0/pull/1890'
+                                    url: prUrl
                                 }
                             }
                         }
