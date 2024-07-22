@@ -41,11 +41,7 @@ export async function assignReviewers({
 
   const octokit = github.getOctokit(repoToken)
 
-  const reviewers = getRandomReviewers(
-    usernames,
-    numberReviewers,
-    repositoryOwner
-  )
+  const reviewers = getRandomReviewers(usernames, numberReviewers, prUser)
 
   await assignReviewersToPullRequest(
     octokit,
@@ -68,9 +64,6 @@ function getRandomReviewers(
   numberReviewers: number,
   owner: string
 ): string[] {
-  console.log(
-    `usernames ${JSON.stringify(usernames)}, numberReviewers ${numberReviewers}, owner ${owner}`
-  )
   const filteredUsernames = usernames.filter(username => username !== owner)
   if (filteredUsernames.length < numberReviewers) {
     core.error(`Not enough reviewers to assign to PR`)
