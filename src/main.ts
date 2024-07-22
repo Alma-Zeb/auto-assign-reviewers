@@ -1,5 +1,6 @@
 import * as core from '@actions/core'
-import { wait } from './wait'
+import { assignReviewers } from './assign-random-reviewers'
+import { sendGoogleChatNotification } from './chat-notification'
 
 /**
  * The main function for the action.
@@ -7,20 +8,34 @@ import { wait } from './wait'
  */
 export async function run(): Promise<void> {
   try {
-    const ms: string = core.getInput('milliseconds')
+    const webhookUrl: string = core.getInput('webhook-url')
+    const repoToken: string = core.getInput('repo-token')
+    const numberReviewers = Number(core.getInput('reviewers'))
+    const usernames: string[] = core.getMultilineInput('usernames')
+    console.log('Assigning reviewers to PR')
+    const response = await assignReviewers({
+      repoToken,
+      numberReviewers,
+      usernames
+    })
 
-    // Debug logs are only output if the `ACTIONS_STEP_DEBUG` secret is true
-    core.debug(`Waiting ${ms} milliseconds ...`)
+    if (!response) {
+      core.error('There was an error assigning reviewers to the PR')
+      return
+    }
+    console.log(`Assigned ${numberReviewers} reviewers to PR`)
 
-    // Log the current timestamp, wait, then log the new timestamp
-    core.debug(new Date().toTimeString())
-    await wait(parseInt(ms, 10))
-    core.debug(new Date().toTimeString())
-
-    // Set outputs for other workflow steps to use
-    core.setOutput('time', new Date().toTimeString())
+    if (webhookUrl) {
+      console.log(`Sending notification to Google Chat`)
+      await sendGoogleChatNotification({
+        ...response,
+        webhookUrl
+      })
+      console.log(`Notification sent to Google Chat`)
+    }
   } catch (error) {
-    // Fail the workflow run if an error occurs
+    core.error('There was an error running the action')
+    core.error(JSON.stringify(error))
     if (error instanceof Error) core.setFailed(error.message)
   }
 }

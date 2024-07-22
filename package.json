@@ -1,22 +1,8 @@
 {
-  "name": "typescript-action",
-  "description": "GitHub Actions TypeScript template",
-  "version": "0.0.0",
-  "author": "",
+  "name": "random-pr-reviewers",
+  "description": "Automatically assign random reviewers to Pull Requests and send a message to Google Chat Space",
+  "version": "1.0.8",
   "private": true,
-  "homepage": "https://github.com/actions/typescript-action",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/actions/typescript-action.git"
-  },
-  "bugs": {
-    "url": "https://github.com/actions/typescript-action/issues"
-  },
-  "keywords": [
-    "actions",
-    "node",
-    "setup"
-  ],
   "exports": {
     ".": "./dist/index.js"
   },
@@ -66,7 +52,8 @@
     ]
   },
   "dependencies": {
-    "@actions/core": "^1.10.1"
+    "@actions/core": "^1.10.1",
+    "@actions/github": "^6.0.0"
   },
   "devDependencies": {
     "@jest/globals": "^29.7.0",
