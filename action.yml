@@ -1,4 +1,4 @@
-name: 'Random PR reviewers'
+name: 'Auto assign PR reviewers'
 description:
   'Automatically assign random reviewers to Pull Requests and send a message to
   Google Chat Space'
